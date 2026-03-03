@@ -66,7 +66,7 @@
       >
         <div class="stat">
           <div class="stat-title">Jeux disponibles</div>
-          <div class="stat-value text-primary">6</div>
+          <div class="stat-value text-primary">{{ visibleGames().length }}</div>
         </div>
 
         <div class="stat">
@@ -76,11 +76,12 @@
       </div>
 
       <div class="wishflix-catalogue__grid">
+        @for (game of games(); track game.id) {
         <article class="card movie-card game-card" aria-label="Jeu Cyber Nexus 2077">
           <figure class="game-card__cover">
             <img
-              ngSrc="https://via.assets.so/game.png?id=1&q=95&w=300&h=450&fit=cover"
-              alt="Cyber Nexus 2077"
+              [ngSrc]="game.image"
+              [alt]="game.title"
               width="300"
               height="450"
               loading="lazy"
@@ -88,22 +89,38 @@
           </figure>
           <div class="card-body game-card__body">
             <div class="game-card__badges">
-              <span class="badge badge-secondary">Nouveautes</span>
-              <span class="badge badge-ghost">RPG</span>
+              <span class="badge badge-secondary">{{ game.category }}</span>
+              <span class="badge badge-ghost">{{ game.genre }}</span>
             </div>
 
-            <h3 class="card-title game-card__title">Cyber Nexus 2077</h3>
-            <p class="game-card__meta">2023 - PC, PS5, Xbox</p>
+            <h3 class="card-title game-card__title">{{ game.title }}</h3>
+            <p class="game-card__meta">{{ game.year }} - {{ game.platform }}</p>
             <div class="game-card__rating">
-              <span class="game-card__rating-value">4.5</span>
+              <span class="game-card__rating-value">{{ game.rating }}</span>
               <span class="game-card__rating-max">/5</span>
             </div>
             <p class="game-card__synopsis">
-              Plongez dans une metropole cyberpunk ou vos choix faconnent le destin de la ville.
+              {{ game.synopsis }}
             </p>
 
             <div class="card-actions game-card__actions">
-              <span class="badge badge-success">Disponible</span>
+              <!-- 
+              [class]="{
+                'badge-success': game.available,
+                'badge-error': !game.available
+              }"
+              -->
+              <span
+              [class.badge-success]="game.available" 
+              [class.badge-error]="!game.available"              
+
+              class="badge">
+                @if (game.available) {
+                  Disponible
+                } @else {
+                  Indisponible
+                }
+              </span>
 
               <button type="button" class="btn btn-sm btn-outline" aria-pressed="false">
                 Ajouter a la wishlist
@@ -112,7 +129,7 @@
           </div>
         </article>
 
-        <article class="card movie-card game-card" aria-label="Jeu Stellar Warfare">
+        <!-- <article class="card movie-card game-card" aria-label="Jeu Stellar Warfare">
           <figure class="game-card__cover">
             <img
               ngSrc="https://via.assets.so/game.png?id=2&q=95&w=300&h=450&fit=cover"
@@ -292,7 +309,8 @@
               </button>
             </div>
           </div>
-        </article>
+        </article> -->
+      }
       </div>
     </section>
   </main>
