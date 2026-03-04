@@ -25,6 +25,7 @@ type Game = {
 })
 export class App {
   protected readonly nomApplication = 'WishFlix';
+  protected readonly onlyAvailable = signal<boolean>(false);
   // Signal principal: source de verite locale de la liste de jeux.
   protected readonly games = signal<Game[]>([
   { id: 1, title: 'Cyber Nexus 2077', genre: 'RPG', category: 'Nouveautes', year: 2023, platform: 'PC, PS5, Xbox', rating: 4.5, synopsis: 'Un RPG futuriste dans un monde cyberpunk.', available: true, image: 'https://via.assets.so/game.png?id=1&q=95&w=300&h=450&fit=cover' },
@@ -36,6 +37,13 @@ export class App {
 ]);
 
 protected readonly visibleGames = computed(() => {
+  if (!this.onlyAvailable()) return this.games()
   return this.games().filter((game) => game.available)
 })
+
+// :void pour typer le return
+protected filterByAvailability(): void {
+// Update immutable sur notre signal games
+  this.onlyAvailable.update((available) => !available);
+}
 }
