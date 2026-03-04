@@ -1,25 +1,12 @@
-import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
+import { GameCard } from '../game/game-card.components';
+import { Game } from '../game/game.model';
 
-
-// Type metier: structure d'un jeu dans le catalogue WishFlix.
-type Game = {
-  id: number;
-  title: string;
-  genre: string;
-  category: string;
-  year: number;
-  platform: string;
-  rating: number;
-  synopsis: string;
-  available: boolean;
-  image: string;
-};
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage],
+  imports: [GameCard],
   templateUrl: './app.template.html',
   styleUrls: ['./app.css'],
 })
