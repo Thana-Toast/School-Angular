@@ -8,7 +8,6 @@ import { Game } from '../game/game.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [GameCard],
   templateUrl: './app.template.html',
-  styleUrls: ['./app.css'],
 })
 export class App {
   protected readonly nomApplication = 'WishFlix';
