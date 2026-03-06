@@ -3,12 +3,13 @@ import { NgOptimizedImage } from '@angular/common';
 import { GameCard } from '../game/game-card.components';
 import { Game } from '../game/game.model';
 import { GameSection } from '../layouts/game-section/game-section';
+import { FlixButton } from '../layouts/flix-button/flix-button';
 
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage,GameCard, GameSection],
+  imports: [NgOptimizedImage,GameCard, GameSection, FlixButton],
   templateUrl: './app.template.html',
 })
 export class App {
