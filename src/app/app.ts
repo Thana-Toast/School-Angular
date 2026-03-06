@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { GameCard } from '../game/game-card.components';
 import { Game } from '../game/game.model';
+import { GameSection } from '../layouts/game-section/game-section';
 
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [GameCard],
+  imports: [NgOptimizedImage,GameCard, GameSection],
   templateUrl: './app.template.html',
 })
 export class App {
