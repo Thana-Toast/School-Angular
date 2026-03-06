@@ -55,21 +55,23 @@
       </div>
     </section>
 
-    <game-section title="Catalogue de jeux" >
+    <game-section title="Catalogue de jeux">
       <flix-button type="primary" filter (click)="filterByAvailability()">@if (onlyAvailable()) { Voir tous les
         jeux } @else { Voir les jeux disponibles }
       </flix-button>
-
-      <ng-container stat-game-count >
+    
+      <ng-container stat-game-count>
         {{ visibleGames().length }}
       </ng-container>
-
+    
+      <ng-container stat-wishlist-count>
+        {{ favoriteGameIds().length }}
+      </ng-container>
+    
       @for (game of visibleGames(); track game.id) {
-      <game-card [game]="game"></game-card>
+      <game-card [game]="game" (favorite)="toggleFavorite($event)" [isFavorite]="isFavorite(game.id)">
+      </game-card>
       }
-    </game-section>
-    <game-section title="Les jeux de ma liste de souhaits">
-      Coucou
     </game-section>
   </main>
 

@@ -33,9 +33,9 @@
                 }
             </span>
 
-            <button type="button" class="btn btn-sm btn-outline" aria-pressed="false">
-                Ajouter a la wishlist
-            </button>
+            <flix-button type="outline" size="sm" (click)="favorite.emit(game().id)">
+                {{ wishlistLabel }}
+            </flix-button>
         </div>
     </div>
 </article>

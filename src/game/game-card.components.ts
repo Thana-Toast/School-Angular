@@ -1,10 +1,11 @@
-import { Component, input } from "@angular/core";
+import { Component, input, output} from "@angular/core";
 import { Game } from "./game.model";
 import { NgOptimizedImage } from "@angular/common";
+import { FlixButton } from '../layouts/flix-button/flix-button';
 
 // indique que la balise <game-card> va appeler le template html
 @Component ({
-    imports: [NgOptimizedImage],
+    imports: [NgOptimizedImage, FlixButton],
     selector: 'game-card',
     templateUrl: './game-card.template.html'
 })
@@ -12,4 +13,13 @@ import { NgOptimizedImage } from "@angular/common";
 export class GameCard {
     // Input détermine une propriété configurable de notre composant
     game = input.required<Game>();
+
+    favorite = output<number>();
+    isFavorite = input<boolean>(false);
+
+    // avec le mot clé get → appel sans les parenthèses
+    get wishlistLabel(): string {
+        const verb = this.isFavorite() ? "Retirer de" : "Ajouter à";
+        return `${verb} la whishlist`;
+    }
 }
