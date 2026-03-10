@@ -2,10 +2,11 @@ import { Component, input, output} from "@angular/core";
 import { Game } from "./game.model";
 import { NgOptimizedImage } from "@angular/common";
 import { FlixButton } from '../layouts/flix-button/flix-button';
+import { RouterLink } from "@angular/router";
 
 // indique que la balise <game-card> va appeler le template html
 @Component ({
-    imports: [NgOptimizedImage, FlixButton],
+    imports: [NgOptimizedImage, FlixButton, RouterLink],
     selector: 'game-card',
     templateUrl: './game-card.template.html'
 })
