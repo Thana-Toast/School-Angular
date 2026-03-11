@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from "@angular/core";
+import { Component, signal, computed, inject, OnInit } from "@angular/core";
 import { FlixButton } from "../../layouts/flix-button/flix-button";
 import { GameSection } from "../../layouts/game-section/game-section";
 import { NgOptimizedImage } from "@angular/common";
@@ -12,6 +12,10 @@ import { GameCatalog } from "../../features/game/game-catalog";
     imports: [NgOptimizedImage, FlixButton, GameSection, GameCard]
 })
 
-export class Home {
-    protected readonly catalog = inject(GameCatalog)
+export class Home implements OnInit {
+    protected readonly catalog = inject(GameCatalog);
+
+    ngOnInit() {
+        this.catalog.loadGames();
+    }
 }
