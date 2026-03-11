@@ -1,6 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Game } from './game.model';
 import { GameDataSource } from './game-data-source';
+import { delay } from 'rxjs';
+
+type State = "IDLE" | "LOADING" | "ERROR" | "LOADED";
 
 // pour indiquer qu'on veut utiliser notre classe à d'autres endroits de notre code
 @Injectable({
@@ -8,6 +11,8 @@ import { GameDataSource } from './game-data-source';
 })
 export class GameCatalog {
     private readonly _dataSource = inject(GameDataSource);
+
+    protected readonly _state = signal<State>("IDLE");
 
     protected readonly _onlyAvailable = signal<boolean>(false);
 
@@ -26,10 +31,16 @@ export class GameCatalog {
 
     readonly favoriteGameIds = this._favoriteGameIds.asReadonly()
 
-    loadGames(): void {
-        this._dataSource.fetchAll().subscribe({
+    loadGames(): void {        
+        this._state.set("LOADING");
+
+        this._dataSource
+        .fetchAll()
+        .pipe(delay(2000))
+        .subscribe({
             next: (games) => {
                 this.games.set(games);
+                this._state.set("LOADED");
             }
         })
     }
@@ -60,5 +71,9 @@ export class GameCatalog {
 
     getGameSheet(gameId: number): Game | undefined {
         return this.games().find((game) => game.id === gameId);
+    }
+
+    isState(state: State): boolean {
+        return this._state() === state;
     }
 }

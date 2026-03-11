@@ -1,3 +1,5 @@
+@if (catalog.isState("LOADED") && catalog.visibleGames.length > 0) {
+
 <section class="hero wishflix-hero" aria-labelledby="titre-hero">
       <figure class="wishflix-hero__backdrop">
         <img
@@ -56,3 +58,14 @@
       </game-card>
       }
     </game-section>
+  } @else if (catalog.isState("LOADING")) {
+    <section>
+      Loading...
+    </section>
+  } @else if (catalog.isState("ERROR")) {
+    <section>
+      Désolé une erreur est survenue durant le chargement des jeux...
+    </section>
+  } @else if (catalog.visibleGames.length === 0) {
+    Le catalogue est vide...
+  }
